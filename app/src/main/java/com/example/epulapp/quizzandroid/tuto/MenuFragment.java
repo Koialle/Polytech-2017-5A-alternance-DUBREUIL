@@ -1,4 +1,4 @@
-package com.example.epulapp.quizzandroid;
+package com.example.epulapp.quizzandroid.tuto;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.example.epulapp.quizzandroid.R;
 
 public class MenuFragment extends Fragment {
 
