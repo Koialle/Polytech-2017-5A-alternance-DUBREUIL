@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.epulapp.quizzandroid.beer.MainActivity">
-
-    <fragment
-        android:id="@+id/fragment"
-        android:name="com.example.epulapp.quizzandroid.beer.BeerFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="16dp"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/fragment_container_beers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context="com.example.epulapp.quizzandroid.tuto.AbstractRootActivity">
+    </FrameLayout>
 </android.support.constraint.ConstraintLayout>

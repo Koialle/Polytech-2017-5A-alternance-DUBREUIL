@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,13 @@ import com.example.epulapp.quizzandroid.R;
 import com.example.epulapp.quizzandroid.beer.dummy.DummyContent;
 import com.example.epulapp.quizzandroid.beer.dummy.DummyContent.DummyItem;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A fragment representing a list of Items.
@@ -23,9 +30,11 @@ import java.util.List;
  * interface.
  */
 public class BeerFragment extends Fragment {
+    //public static List<Beer> beers = new ArrayList<>();
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private static final String PUNK_API_URL = "https://api.punkapi.com/v2/";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
@@ -61,6 +70,22 @@ public class BeerFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_beer_list, container, false);
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(PUNK_API_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitService service = retrofit.create(RetrofitService.class);
+        Call<List<Beer>> beers = service.getBeers();
+
+        List<Beer> listBeers = new ArrayList<>();
+        try {
+            listBeers = beers.execute().body();
+        } catch (IOException exception) {
+            //@TODO handle
+            Log.e("beers", exception.getStackTrace().toString());
+        }
+
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -70,7 +95,7 @@ public class BeerFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyBeerRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyBeerRecyclerViewAdapter(/*DummyContent.ITEMS*/listBeers, mListener));
         }
         return view;
     }
@@ -105,6 +130,7 @@ public class BeerFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Beer item);
+        //void onListFragmentInteraction(DummyItem item);
     }
 }

@@ -19,10 +19,11 @@ import java.util.List;
  */
 public class MyBeerRecyclerViewAdapter extends RecyclerView.Adapter<MyBeerRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Beer> mValues;
+    //private final List<DummyItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyBeerRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyBeerRecyclerViewAdapter(/*List<DummyItem>*/List<Beer> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -36,9 +37,10 @@ public class MyBeerRecyclerViewAdapter extends RecyclerView.Adapter<MyBeerRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        Beer beer = mValues.get(position);
+        holder.mItem = beer;
+        holder.mIdView.setText(beer.id);
+        holder.mContentView.setText(beer.name + " " + beer.description);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +63,8 @@ public class MyBeerRecyclerViewAdapter extends RecyclerView.Adapter<MyBeerRecycl
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public Beer mItem;
+        //public DummyItem mItem;
 
         public ViewHolder(View view) {
             super(view);
