@@ -39,7 +39,7 @@ public class MyBeerRecyclerViewAdapter extends RecyclerView.Adapter<MyBeerRecycl
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Beer beer = mValues.get(position);
         holder.mItem = beer;
-        holder.mIdView.setText(beer.id);
+        holder.mIdView.setText(String.valueOf(beer.id));
         holder.mContentView.setText(beer.name + " " + beer.description);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +64,6 @@ public class MyBeerRecyclerViewAdapter extends RecyclerView.Adapter<MyBeerRecycl
         public final TextView mIdView;
         public final TextView mContentView;
         public Beer mItem;
-        //public DummyItem mItem;
 
         public ViewHolder(View view) {
             super(view);

@@ -1,6 +1,7 @@
 package com.example.epulapp.quizzandroid.beer;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,8 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.epulapp.quizzandroid.R;
-import com.example.epulapp.quizzandroid.beer.dummy.DummyContent;
-import com.example.epulapp.quizzandroid.beer.dummy.DummyContent.DummyItem;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,14 +29,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * interface.
  */
 public class BeerFragment extends Fragment {
-    //public static List<Beer> beers = new ArrayList<>();
+    public List<Beer> listBeers = new ArrayList<>();
+    private static final String PUNK_API_URL = "https://api.punkapi.com/v2/";
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    private static final String PUNK_API_URL = "https://api.punkapi.com/v2/";
+
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    private RecyclerView recyclerView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -70,34 +71,51 @@ public class BeerFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_beer_list, container, false);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(PUNK_API_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        RetrofitService service = retrofit.create(RetrofitService.class);
-        Call<List<Beer>> beers = service.getBeers();
-
-        List<Beer> listBeers = new ArrayList<>();
-        try {
-            listBeers = beers.execute().body();
-        } catch (IOException exception) {
-            //@TODO handle
-            Log.e("beers", exception.getStackTrace().toString());
-        }
+        new MyAsyncTask().execute();
 
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyBeerRecyclerViewAdapter(/*DummyContent.ITEMS*/listBeers, mListener));
         }
+
         return view;
+    }
+
+    private class MyAsyncTask extends AsyncTask<Object, Integer, List<Beer>> {
+        @Override
+        protected List<Beer> doInBackground(Object... params) {
+            System.out.println("Je suis dans doInBackground");
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(PUNK_API_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            RetrofitService service = retrofit.create(RetrofitService.class);
+            Call<List<Beer>> beers = service.getBeers();
+
+            try {
+                listBeers = beers.execute().body();
+            } catch (IOException exception) {
+                Log.e("beers", exception.getStackTrace().toString());
+            }
+
+            return listBeers;
+        }
+
+        @Override
+        protected void onPostExecute(List<Beer> beers) {
+            super.onPostExecute(beers);
+
+            MyBeerRecyclerViewAdapter adapter = new MyBeerRecyclerViewAdapter(beers, mListener);
+            recyclerView.setAdapter(adapter);
+        }
     }
 
 
