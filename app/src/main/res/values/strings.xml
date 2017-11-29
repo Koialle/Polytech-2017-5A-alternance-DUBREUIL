@@ -11,4 +11,10 @@
     <string name="player">Player: Mel</string>
     <string name="life">Life(s): 3</string>
     <string name="score">Score: 18</string>
+    <string name="offline">Offline :</string>
+    <string name="vsIA">1 vs IA</string>
+    <string name="vsOne">1 vs 1</string>
+    <string name="vsTeams">Team A vs Team B</string>
+    <string name="online">Online :</string>
+    <string name="vsOneOneline">1 vs 1 Online</string>
 </resources>

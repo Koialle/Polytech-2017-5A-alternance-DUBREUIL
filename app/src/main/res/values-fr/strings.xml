@@ -11,4 +11,11 @@
     <string name="player">Joueur: Mel</string>
     <string name="life">Vie(s): 3</string>
     <string name="score">Score: 18</string>
+    <string name="app_name">QuizzApp</string>
+    <string name="offline">Hors ligne :</string>
+    <string name="vsIA">1 vs IA</string>
+    <string name="vsOne">1 vs 1</string>
+    <string name="vsTeams">Equipe A vs Equipe B</string>
+    <string name="online">En ligne :</string>
+    <string name="vsOneOneline">1 vs  1 Online</string>
 </resources>
