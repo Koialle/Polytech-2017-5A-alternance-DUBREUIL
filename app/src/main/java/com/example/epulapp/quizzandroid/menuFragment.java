@@ -11,10 +11,10 @@ import android.widget.Button;
 public class MenuFragment extends Fragment {
 
     public interface MenuCallback {
-        public void onButtonClicked(View view);
+        void onButtonClicked(View view);
     }
 
-    private MenuCallback activity;
+    private MenuCallback menuCallback;
 
     public MenuFragment() {
         // Required empty public constructor
@@ -24,12 +24,11 @@ public class MenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
 
-        Button button = view.findViewById(R.id.button);
+        Button button = (Button) view.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //@TODO callback to activity
-                activity.onButtonClicked(view);
+            menuCallback.onButtonClicked(view);
             }
         });
 
@@ -40,7 +39,7 @@ public class MenuFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            activity = (MenuCallback) context;
+            menuCallback = (MenuCallback) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(String.valueOf(context) + " must implement onButtonClicked");
         }
