@@ -29,13 +29,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * interface.
  */
 public class BeerFragment extends Fragment {
-    public List<Beer> listBeers = new ArrayList<>();
+
     private static final String PUNK_API_URL = "https://api.punkapi.com/v2/";
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
 
     // TODO: Customize parameters
+    private List<Beer> listBeers = new ArrayList<>();
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private RecyclerView recyclerView;
@@ -113,7 +114,7 @@ public class BeerFragment extends Fragment {
         protected void onPostExecute(List<Beer> beers) {
             super.onPostExecute(beers);
 
-            MyBeerRecyclerViewAdapter adapter = new MyBeerRecyclerViewAdapter(beers, mListener);
+            BeerRecyclerViewAdapter adapter = new BeerRecyclerViewAdapter(beers, mListener);
             recyclerView.setAdapter(adapter);
         }
     }

@@ -1,29 +1,33 @@
 package com.example.epulapp.quizzandroid.beer;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.epulapp.quizzandroid.R;
 import com.example.epulapp.quizzandroid.beer.BeerFragment.OnListFragmentInteractionListener;
 import com.example.epulapp.quizzandroid.beer.dummy.DummyContent.DummyItem;
 
+import java.io.InputStream;
 import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
-public class MyBeerRecyclerViewAdapter extends RecyclerView.Adapter<MyBeerRecyclerViewAdapter.ViewHolder> {
+public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerViewAdapter.ViewHolder> {
 
     private final List<Beer> mValues;
-    //private final List<DummyItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyBeerRecyclerViewAdapter(/*List<DummyItem>*/List<Beer> items, OnListFragmentInteractionListener listener) {
+    public BeerRecyclerViewAdapter(List<Beer> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -41,6 +45,8 @@ public class MyBeerRecyclerViewAdapter extends RecyclerView.Adapter<MyBeerRecycl
         holder.mItem = beer;
         holder.mIdView.setText(String.valueOf(beer.id));
         holder.mContentView.setText(beer.name + " " + beer.description);
+        //holder.mImageView.setImageDrawable();
+        new DownloadImageTask(holder.mImageView).execute(beer.image_url);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +69,7 @@ public class MyBeerRecyclerViewAdapter extends RecyclerView.Adapter<MyBeerRecycl
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
+        public final ImageView mImageView;
         public Beer mItem;
 
         public ViewHolder(View view) {
@@ -70,11 +77,37 @@ public class MyBeerRecyclerViewAdapter extends RecyclerView.Adapter<MyBeerRecycl
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.id);
             mContentView = (TextView) view.findViewById(R.id.content);
+            mImageView = (ImageView) view.findViewById(R.id.imageView);
         }
 
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
+        }
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView imageView;
+
+        public DownloadImageTask(ImageView imageView) {
+            this.imageView = imageView;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            imageView.setImageBitmap(result);
         }
     }
 }

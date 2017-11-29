@@ -18,7 +18,5 @@
     <string name="player">Player: Mel</string>
     <string name="life">Life(s): 3</string>
     <string name="score">Score: 18</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="image_alt">Beer icon</string>
 </resources>
