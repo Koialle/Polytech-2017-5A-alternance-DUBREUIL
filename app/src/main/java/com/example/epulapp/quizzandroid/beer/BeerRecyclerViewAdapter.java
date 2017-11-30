@@ -10,16 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.epulapp.quizzandroid.R;
 import com.example.epulapp.quizzandroid.beer.BeerFragment.OnListFragmentInteractionListener;
-import com.example.epulapp.quizzandroid.beer.dummy.DummyContent.DummyItem;
-
 import java.io.InputStream;
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link Beer} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  */
 public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerViewAdapter.ViewHolder> {
@@ -44,7 +41,7 @@ public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerVi
         Beer beer = mValues.get(position);
         holder.beer = beer;
         holder.nameView.setText(beer.getName());
-        holder.alcView.setText("Alc." + beer.getTauxAlcool());
+        holder.alcView.setText("Alc." + beer.getAbv());
         new DownloadImageTask(holder.imageView).execute(beer.image_url);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

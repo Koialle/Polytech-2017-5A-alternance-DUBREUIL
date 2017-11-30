@@ -5,7 +5,7 @@ public class Beer {
     public String name;
     public String image_url;
     public String description;
-    public int tauxAlcool; // abv
+    public float abv; // Taux alcool
 
     public Beer(int id, String name) {
         this.id = id;
@@ -44,12 +44,12 @@ public class Beer {
         this.description = description;
     }
 
-    public int getTauxAlcool() {
-        return tauxAlcool;
+    public float getAbv() {
+        return abv;
     }
 
-    public void setTauxAlcool(int tauxAlcool) {
-        this.tauxAlcool = tauxAlcool;
+    public void setAbv(float abv) {
+        this.abv = abv;
     }
 
     @Override
