@@ -52,6 +52,7 @@ public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerVi
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
+                    Log.d("hello","hello");
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
