@@ -1,15 +1,19 @@
 package com.example.epulapp.quizzandroid.beer;
 
-public class Beer {
-    public int id;
-    public String name;
-    public String image_url;
-    public String description;
-    public float abv; // Taux alcool
+import android.graphics.Bitmap;
 
-    public Beer(int id, String name) {
-        this.id = id;
-        this.name = name;
+import java.util.Observable;
+
+public class Beer extends Observable {
+    private int id;
+    private String name;
+    private String image_url;
+    private String description;
+    private float abv; // Taux alcool
+    private Bitmap image;
+
+    public Beer() {
+        super();
     }
 
     public int getId() {
@@ -52,8 +56,30 @@ public class Beer {
         this.abv = abv;
     }
 
+    public Bitmap getImage() {
+        return image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
+
+        this.setChanged();
+        this.notifyObservers();
+    }
+
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Beer) {
+            if (((Beer) obj).getId() == this.id) {
+                return true;
+            }
+        }
+
+        return super.equals(obj);
     }
 }

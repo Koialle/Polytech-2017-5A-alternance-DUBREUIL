@@ -1,6 +1,8 @@
 package com.example.epulapp.quizzandroid.beer;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import com.example.epulapp.quizzandroid.R;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,7 +117,14 @@ public class BeerFragment extends Fragment {
             super.onPostExecute(beers);
 
             BeerRecyclerViewAdapter adapter = new BeerRecyclerViewAdapter(beers, mListener);
+
+            for (Beer beer: beers) {
+                beer.addObserver(adapter);
+                new DownloadImageTask(beer).execute(beer.getImage_url());
+            }
+
             recyclerView.setAdapter(adapter);
+            recyclerView.setHasFixedSize(true);
         }
     }
 
@@ -150,5 +160,30 @@ public class BeerFragment extends Fragment {
         // TODO: Update argument type and name
         void onListFragmentInteraction(Beer item);
         //void onListFragmentInteraction(DummyItem item);
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        private Beer beer;
+
+        public DownloadImageTask(Beer beer) {
+            this.beer = beer;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            beer.setImage(result);
+        }
     }
 }

@@ -1,25 +1,24 @@
 package com.example.epulapp.quizzandroid.beer;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.example.epulapp.quizzandroid.R;
 import com.example.epulapp.quizzandroid.beer.BeerFragment.OnListFragmentInteractionListener;
-import java.io.InputStream;
+
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Beer} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  */
-public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerViewAdapter.ViewHolder> {
+public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerViewAdapter.ViewHolder> implements Observer {
 
     private final List<Beer> mValues;
     private final OnListFragmentInteractionListener mListener;
@@ -42,7 +41,7 @@ public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerVi
         holder.beer = beer;
         holder.nameView.setText(beer.getName());
         holder.alcView.setText("Alc." + beer.getAbv());
-        new DownloadImageTask(holder.imageView).execute(beer.image_url);
+        holder.imageView.setImageBitmap(beer.getImage());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +60,14 @@ public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerVi
         return mValues.size();
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o instanceof Beer) {
+            int position = mValues.indexOf(o);
+            this.notifyItemChanged(position);
+        }
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView nameView;
         public final TextView alcView;
@@ -77,31 +84,6 @@ public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerVi
         @Override
         public String toString() {
             return super.toString() + " '" + nameView.getText() + "'";
-        }
-    }
-
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView imageView;
-
-        public DownloadImageTask(ImageView imageView) {
-            this.imageView = imageView;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            imageView.setImageBitmap(result);
         }
     }
 }
