@@ -43,8 +43,8 @@ public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerVi
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Beer beer = mValues.get(position);
         holder.mItem = beer;
-        holder.mIdView.setText(String.valueOf(beer.id));
-        holder.mContentView.setText(beer.name + " " + beer.description);
+        holder.mIdView.setText(beer.getName());
+        holder.mContentView.setText("Alc." + beer.getTauxAlcool());
         //holder.mImageView.setImageDrawable();
         new DownloadImageTask(holder.mImageView).execute(beer.image_url);
 
@@ -75,8 +75,8 @@ public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerVi
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mIdView = (TextView) view.findViewById(R.id.textview_beer_name);
+            mContentView = (TextView) view.findViewById(R.id.textview_beer_alc);
             mImageView = (ImageView) view.findViewById(R.id.imageView);
         }
 

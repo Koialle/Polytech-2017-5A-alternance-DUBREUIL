@@ -91,7 +91,6 @@ public class BeerFragment extends Fragment {
     private class MyAsyncTask extends AsyncTask<Object, Integer, List<Beer>> {
         @Override
         protected List<Beer> doInBackground(Object... params) {
-            System.out.println("Je suis dans doInBackground");
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(PUNK_API_URL)
