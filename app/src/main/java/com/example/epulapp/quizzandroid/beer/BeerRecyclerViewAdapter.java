@@ -42,20 +42,19 @@ public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerVi
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Beer beer = mValues.get(position);
-        holder.mItem = beer;
-        holder.mIdView.setText(beer.getName());
-        holder.mContentView.setText("Alc." + beer.getTauxAlcool());
-        //holder.mImageView.setImageDrawable();
-        new DownloadImageTask(holder.mImageView).execute(beer.image_url);
+        holder.beer = beer;
+        holder.nameView.setText(beer.getName());
+        holder.alcView.setText("Alc." + beer.getTauxAlcool());
+        new DownloadImageTask(holder.imageView).execute(beer.image_url);
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
+            if (null != mListener) {
+                // Notify the active callbacks interface (the activity, if the
+                // fragment is attached to one) that an item has been selected.
+                mListener.onListFragmentInteraction(holder.beer);
+            }
             }
         });
     }
@@ -66,23 +65,21 @@ public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerVi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public final ImageView mImageView;
-        public Beer mItem;
+        public final TextView nameView;
+        public final TextView alcView;
+        public final ImageView imageView;
+        public Beer beer;
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
-            mIdView = (TextView) view.findViewById(R.id.textview_beer_name);
-            mContentView = (TextView) view.findViewById(R.id.textview_beer_alc);
-            mImageView = (ImageView) view.findViewById(R.id.imageView);
+            nameView = (TextView) itemView.findViewById(R.id.textview_beer_name);
+            alcView = (TextView) itemView.findViewById(R.id.textview_beer_alc);
+            imageView = (ImageView) itemView.findViewById(R.id.imageview_beer);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + nameView.getText() + "'";
         }
     }
 
