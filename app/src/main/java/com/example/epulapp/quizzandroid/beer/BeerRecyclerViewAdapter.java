@@ -19,7 +19,6 @@ import java.util.Observer;
  * specified {@link OnListFragmentInteractionListener}.
  */
 public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerViewAdapter.ViewHolder> implements Observer {
-
     private final List<Beer> mValues;
     private final OnListFragmentInteractionListener mListener;
 

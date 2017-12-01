@@ -4,6 +4,9 @@ import android.graphics.Bitmap;
 
 import java.util.Observable;
 
+/**
+ * A class to save <g>beer</g> properties
+ */
 public class Beer extends Observable {
     private int id;
     private String name;
@@ -39,24 +42,12 @@ public class Beer extends Observable {
         return image_url;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
-    }
-
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public float getAbv() {
         return abv;
-    }
-
-    public void setAbv(float abv) {
-        this.abv = abv;
     }
 
     public Bitmap getImage() {
@@ -74,24 +65,12 @@ public class Beer extends Observable {
         return brewers_tips;
     }
 
-    public void setBrewers_tips(String brewers_tips) {
-        this.brewers_tips = brewers_tips;
-    }
-
     public String getFirst_brewed() {
         return first_brewed;
     }
 
-    public void setFirst_brewed(String first_brewed) {
-        this.first_brewed = first_brewed;
-    }
-
     public String getContributed_by() {
         return contributed_by;
-    }
-
-    public void setContributed_by(String contributed_by) {
-        this.contributed_by = contributed_by;
     }
 
     @Override
@@ -106,7 +85,6 @@ public class Beer extends Observable {
                 return true;
             }
         }
-
         return super.equals(obj);
     }
 }

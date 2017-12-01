@@ -26,13 +26,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
+ * A fragment representing a list of <g>Beers.</g>
  */
 public class BeerFragment extends Fragment {
-
     private static final String PUNK_API_URL = "https://api.punkapi.com/v2/";
     private static final String ARG_COLUMN_COUNT = "column-count";
     private List<Beer> listBeers = new ArrayList<>();
@@ -47,8 +43,6 @@ public class BeerFragment extends Fragment {
     public BeerFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static BeerFragment newInstance(int columnCount) {
         BeerFragment fragment = new BeerFragment();
         Bundle args = new Bundle();
@@ -60,7 +54,6 @@ public class BeerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -90,7 +83,7 @@ public class BeerFragment extends Fragment {
     private class MyAsyncTask extends AsyncTask<Object, Integer, List<Beer>> {
         @Override
         protected List<Beer> doInBackground(Object... params) {
-
+            // Getting beer list from API
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(PUNK_API_URL)
                     .addConverterFactory(GsonConverterFactory.create())

@@ -21,8 +21,9 @@
     <string name="image_alt">Beer icon</string>
     <string name="alc">Alc. :</string>
     <string name="description">Description :</string>
-    <string name="first_brewed">First brewed in </string>
-    <string name="contributed">Contributed by </string>
+    <string name="first_brewed">First brewed in : </string>
+    <string name="contributed">Contributed by : </string>
+    <string name="tips">Tips : </string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
