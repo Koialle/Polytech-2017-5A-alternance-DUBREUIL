@@ -8,28 +8,32 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.epulapp.quizzandroid.R;
 
 
 public class BeerDetail extends Fragment {
+    private Beer beer = new Beer();
+
+    public static BeerDetail newInstance() {
+        BeerDetail fragment = new BeerDetail();
+        return fragment;
+    }
+
+    public void setBeer(Beer beer){
+        this.beer = beer;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Bundle bundle = this.getArguments();
-        String name = bundle.getString("name");
-        String description = bundle.getString("description");
-        float alc = bundle.getFloat("alc");
-
-        View view = inflater.inflate(R.layout.fragment_detail_beer, container, false);
-        // Set the Text to try this out
-        TextView txtOne = (TextView) view.findViewById(R.id.detail_beer_name);
-        txtOne.setText(name);
-        TextView txtTwo = (TextView) view.findViewById(R.id.detail_beer_desc);
-        txtTwo.setText(description);
-        TextView txtThree = (TextView) view.findViewById(R.id.detail_beer_alc);
-        txtThree.setText(String.valueOf(alc));
-        return view;
+        View v = inflater.inflate(R.layout.fragment_detail_beer, container, false);
+        ((TextView)v.findViewById(R.id.detail_beer_name)).setText(beer.getName());
+        ((TextView)v.findViewById(R.id.detail_beer_desc)).setText(beer.getDescription());
+        ((TextView)v.findViewById(R.id.detail_beer_alc)).setText(String.valueOf(beer.getAbv()));
+        ((TextView)v.findViewById(R.id.beer_detail_first_brewed)).setText(beer.getFirst_brewed());
+        ((ImageView)v.findViewById(R.id.beer_detail_image)).setImageBitmap(beer.getImage());
+        return v;
     }
 }

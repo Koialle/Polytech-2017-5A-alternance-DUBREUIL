@@ -30,13 +30,7 @@ public class MainActivity extends AppCompatActivity implements BeerFragment.OnLi
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         BeerDetail fragment = new BeerDetail();
-        // Passing beer properties to the fragment
-        Bundle bundle = new Bundle();
-        bundle.putString("name", item.getName());
-        bundle.putString("description", item.getDescription());
-        bundle.putFloat("alc", item.getAbv());
-        bundle.putString("image", item.getImage_url());
-        fragment.setArguments(bundle);
+        fragment.setBeer(item);
 
         fragmentTransaction.replace(R.id.fragment_container_beers, fragment);
         fragmentTransaction.addToBackStack(null);
