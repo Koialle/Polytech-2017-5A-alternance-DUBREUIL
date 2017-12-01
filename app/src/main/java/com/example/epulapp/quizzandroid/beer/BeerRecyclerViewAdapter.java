@@ -1,10 +1,6 @@
 package com.example.epulapp.quizzandroid.beer;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +9,16 @@ import android.widget.TextView;
 
 import com.example.epulapp.quizzandroid.R;
 import com.example.epulapp.quizzandroid.beer.BeerFragment.OnListFragmentInteractionListener;
-import com.example.epulapp.quizzandroid.beer.dummy.DummyContent.DummyItem;
 
-import java.io.InputStream;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link Beer} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  */
-public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerViewAdapter.ViewHolder> {
+public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerViewAdapter.ViewHolder> implements Observer {
 
     private final List<Beer> mValues;
     private final OnListFragmentInteractionListener mListener;
@@ -42,21 +38,19 @@ public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerVi
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Beer beer = mValues.get(position);
-        holder.mItem = beer;
-        holder.mIdView.setText(beer.getName());
-        holder.mContentView.setText("Alc." + beer.getTauxAlcool());
-        //holder.mImageView.setImageDrawable();
-        new DownloadImageTask(holder.mImageView).execute(beer.image_url);
+        holder.beer = beer;
+        holder.nameView.setText(beer.getName());
+        holder.alcView.setText("Alc." + beer.getAbv());
+        holder.imageView.setImageBitmap(beer.getImage());
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
-                    Log.d("hello","hello");
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
+            if (null != mListener) {
+                // Notify the active callbacks interface (the activity, if the
+                // fragment is attached to one) that an item has been selected.
+                mListener.onListFragmentInteraction(holder.beer);
+            }
             }
         });
     }
@@ -66,49 +60,30 @@ public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerVi
         return mValues.size();
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o instanceof Beer) {
+            int position = mValues.indexOf(o);
+            this.notifyItemChanged(position);
+        }
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public final ImageView mImageView;
-        public Beer mItem;
+        public final TextView nameView;
+        public final TextView alcView;
+        public final ImageView imageView;
+        public Beer beer;
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
-            mIdView = (TextView) view.findViewById(R.id.textview_beer_name);
-            mContentView = (TextView) view.findViewById(R.id.textview_beer_alc);
-            mImageView = (ImageView) view.findViewById(R.id.imageView);
+            nameView = (TextView) itemView.findViewById(R.id.textview_beer_name);
+            alcView = (TextView) itemView.findViewById(R.id.textview_beer_alc);
+            imageView = (ImageView) itemView.findViewById(R.id.imageview_beer);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
-        }
-    }
-
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView imageView;
-
-        public DownloadImageTask(ImageView imageView) {
-            this.imageView = imageView;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            imageView.setImageBitmap(result);
+            return super.toString() + " '" + nameView.getText() + "'";
         }
     }
 }

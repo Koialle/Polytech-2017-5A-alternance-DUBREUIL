@@ -20,7 +20,7 @@ public class BeerDetail extends Fragment {
         Bundle bundle = this.getArguments();
         String name = bundle.getString("name");
         String description = bundle.getString("description");
-        int alc = bundle.getInt("alc");
+        float alc = bundle.getFloat("alc");
 
         View view = inflater.inflate(R.layout.fragment_detail_beer, container, false);
         // Set the Text to try this out

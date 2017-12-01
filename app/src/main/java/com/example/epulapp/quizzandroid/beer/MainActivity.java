@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements BeerFragment.OnLi
         Bundle bundle = new Bundle();
         bundle.putString("name", item.getName());
         bundle.putString("description", item.getDescription());
-        bundle.putInt("alc", item.getTauxAlcool());
+        bundle.putFloat("alc", item.getAbv());
         bundle.putString("image", item.getImage_url());
         fragment.setArguments(bundle);
 
