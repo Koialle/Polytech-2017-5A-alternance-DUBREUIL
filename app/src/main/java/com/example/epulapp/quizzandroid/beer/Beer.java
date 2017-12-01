@@ -9,6 +9,9 @@ public class Beer extends Observable {
     private String name;
     private String image_url;
     private String description;
+    private String brewers_tips;
+    private String first_brewed;
+    private String contributed_by;
     private float abv; // Taux alcool
     private Bitmap image;
 
@@ -65,6 +68,30 @@ public class Beer extends Observable {
 
         this.setChanged();
         this.notifyObservers();
+    }
+
+    public String getBrewers_tips() {
+        return brewers_tips;
+    }
+
+    public void setBrewers_tips(String brewers_tips) {
+        this.brewers_tips = brewers_tips;
+    }
+
+    public String getFirst_brewed() {
+        return first_brewed;
+    }
+
+    public void setFirst_brewed(String first_brewed) {
+        this.first_brewed = first_brewed;
+    }
+
+    public String getContributed_by() {
+        return contributed_by;
+    }
+
+    public void setContributed_by(String contributed_by) {
+        this.contributed_by = contributed_by;
     }
 
     @Override
