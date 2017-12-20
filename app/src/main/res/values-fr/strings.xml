@@ -18,4 +18,5 @@
     <string name="vsOne">1 vs 1</string>
     <string name="vsOneOneline">1 vs 1 En ligne</string>
     <string name="vsTeams">Equipe A vs Equipe B</string>
+    <string name="image_alt">Icone bière</string>
 </resources>
