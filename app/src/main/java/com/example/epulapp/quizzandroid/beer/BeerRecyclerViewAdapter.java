@@ -40,6 +40,7 @@ public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerVi
         holder.beer = beer;
         holder.nameView.setText(beer.getName());
         holder.alcView.setText("Alc." + beer.getAbv());
+        holder.brewedDate.setText(beer.getFirst_brewed());
         holder.imageView.setImageBitmap(beer.getImage());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +71,7 @@ public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerVi
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView nameView;
         public final TextView alcView;
+        public final TextView brewedDate;
         public final ImageView imageView;
         public Beer beer;
 
@@ -78,6 +80,7 @@ public class BeerRecyclerViewAdapter extends RecyclerView.Adapter<BeerRecyclerVi
             nameView = (TextView) itemView.findViewById(R.id.textview_beer_name);
             alcView = (TextView) itemView.findViewById(R.id.textview_beer_alc);
             imageView = (ImageView) itemView.findViewById(R.id.imageview_beer);
+            brewedDate = (TextView) itemView.findViewById(R.id.textview_beer_brewed);
         }
 
         @Override

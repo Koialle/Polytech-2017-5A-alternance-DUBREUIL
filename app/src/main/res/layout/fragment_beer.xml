@@ -20,21 +20,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:textAppearance="?attr/textAppearanceListItem"
-        app:layout_constraintStart_toEndOf="@+id/imageview_beer"
+        app:layout_constraintStart_toStartOf="@+id/guideline28"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textview_beer_alc"
-        android:layout_width="0dp"
+        android:id="@+id/textview_beer_brewed"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
         android:textAppearance="?attr/textAppearanceListItem"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline28" />
+
+    <TextView
+        android:id="@+id/textview_beer_alc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="8dp"
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="78dp"
+        android:layout_marginLeft="78dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="303dp"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
