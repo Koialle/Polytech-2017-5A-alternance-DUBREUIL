@@ -1,4 +1,4 @@
-package com.example.epulapp.quizzandroid;
+package com.example.epulapp.quizzandroid.tuto;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -16,6 +16,8 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+
+import com.example.epulapp.quizzandroid.R;
 
 public class AbstractRootActivity extends AppCompatActivity implements MenuFragment.MenuCallback {
 
