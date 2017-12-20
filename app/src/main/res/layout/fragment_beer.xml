@@ -7,9 +7,11 @@
 
     <ImageView
         android:id="@+id/imageview_beer"
-        android:layout_width="100dp"
+        android:layout_width="70dp"
         android:layout_height="100dp"
+        android:adjustViewBounds="false"
         android:contentDescription="@string/image_alt"
+        android:cropToPadding="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:textAppearance="?attr/textAppearanceListItem"
         app:layout_constraintStart_toEndOf="@+id/imageview_beer"
